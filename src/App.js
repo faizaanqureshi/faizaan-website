@@ -3,7 +3,7 @@ import './App.css';
 function App() {
   return (
     <div className='flex flex-col justify-between lg:flex-row'>
-      <div className='lg:sticky lg:top-0 flex flex-col p-6 justify-between lg:max-h-screen lg:justify-center lg:flex-1 lg:ml-10 lg:mr-10'>
+      <div className='lg:sticky lg:top-0 flex flex-col pl-6 pr-6 pt-6 justify-between lg:max-h-screen lg:justify-center lg:flex-1 lg:ml-10 lg:mr-10'>
         <h1 className='font-sans text-white font-bold text-4xl'>Faizaan Qureshi</h1>
         <h2 className='font-sans text-white font-medium text-2xl pt-6'>Software Engineer at Interac</h2>
         <p className='font-sans text-slate-400 pt-2 pb-8'>I design software solutions to solve complex problems and unleash my creativity</p>
@@ -22,7 +22,7 @@ function App() {
             <img className='w-8 h-8 ml-6' src='instagram.svg' />
           </a>
         </div>
-        <hr class="lg:hidden h-px mt-10 mb-6 bg-gray-200 border-0 dark:bg-gray-400"></hr>
+        <hr class="lg:hidden h-px mt-10 bg-gray-200 border-0 dark:bg-gray-400"></hr>
       </div>
       <div className='flex flex-col justify-between p-8 lg:flex-1 lg:mr-10 lg:overflow-auto'>
         <div className='flex flex-col'>
