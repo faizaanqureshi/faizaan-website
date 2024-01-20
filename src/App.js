@@ -22,8 +22,8 @@ function App() {
             <img className='w-8 h-8 ml-6' src='instagram.svg' />
           </a>
         </div>
+        <hr class="lg:hidden h-px mt-10 mb-6 bg-gray-200 border-0 dark:bg-gray-400"></hr>
       </div>
-      <hr class="h-px mt-10 mb-6 bg-gray-200 border-0 dark:bg-gray-400"></hr>
       <div className='flex flex-col justify-between p-8 lg:flex-1 lg:mr-10 lg:overflow-auto'>
         <div className='flex flex-col'>
           <h2 className='font-sans text-white font-medium text-2xl pb-2'>Education</h2>
