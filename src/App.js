@@ -54,7 +54,7 @@ function App() {
               <img className='w-12 h-12' src='interac.png' />
               <div className='flex flex-col pl-6 pr-6'>
                 <time class="mb-1 text-sm font-normal leading-none text-gray-400">January 2024 - Present</time>
-                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Software Developer Intern</h3>
+                <h3 class="text-lg font-semibold text-white">Software Developer Intern</h3>
                 <p className='font-sans text-slate-300'>Interac Corp.</p>
                 <p className='font-sans text-slate-400 text-sm pt-2'>Tools Used: Java (Spring/Spring Boot), JUnit, Mockito, SonarQube, JIRA, Agile Project Management</p>
               </div>
@@ -64,7 +64,7 @@ function App() {
               <img className='w-12 h-12' src='omers.png' />
               <div className='flex flex-col pl-6 pr-6'>
                 <time class="mb-1 text-sm font-normal leading-none text-gray-400">January 2023 - April 2023</time>
-                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Software Engineer Intern</h3>
+                <h3 class="text-lg font-semibold text-white">Software Engineer Intern</h3>
                 <p className='font-sans text-slate-300'>OMERS</p>
                 <p className='font-sans text-slate-400 text-sm pt-2'>Tools Used: Java (Spring/Spring Boot), React.js, JUnit, Mockito, Postman, Swagger, SonarQube, JIRA, Agile Project Management</p>
               </div>
