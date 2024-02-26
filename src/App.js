@@ -78,19 +78,42 @@ function App() {
             <div className='flex flex-row justify-left pb-6'>
               <div className='flex flex-col'>
                 <h2 className='font-sans text-white font-medium text-xl'>Laurier Flow</h2>
-                <p className='font-sans text-slate-300'>Deployment in Q1 2024</p>
+                <p className='font-sans text-slate-200'>Lead Developer</p>
+                <p className='font-sans text-slate-400'>Deployment end of Q1 2024</p>
+                <a href='https://laurier-flow.vercel.app/'>
+                  <p className='font-sans text-slate-300'>laurier-flow.vercel.app</p>
+                </a>
                 <ul class="space-y-1 text-slate-400 pl-5 list-disc list-outside pt-2">
                   <li>
                     Developed a course discovery platform by designing a web scraper using Node.js and Puppeteer to gather course
                     registration numbers efficiently, ensuring up-to-date information for students
                   </li>
                   <li>
-                    Created splash screens and user interfaces for courses and account management using React.js and Next.js, along
+                    Created splash screens and user interfaces for courses and professors using React.js and Next.js, along
                     with Tailwind CSS as a styling framework
                   </li>
                   <li>
                     Established a robust backend infrastructure with Supabase (PostgreSQL), facilitating data storage for courses,
                     professors, users, sections, and reviews
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div className='flex flex-row justify-left pb-6'>
+              <div className='flex flex-col'>
+                <h2 className='font-sans text-white font-medium text-xl'>Hack the North - Frontend Challenge</h2>
+                <a href='https://htn-fe-challenge.vercel.app/'>
+                  <p className='font-sans text-slate-300'>htn-fe-challenge.vercel.app</p>
+                </a>
+                <ul class="space-y-1 text-slate-400 pl-5 list-disc list-outside pt-2">
+                  <li>
+                    Deployed a front end site to display Hack the North's events as part of their organizer challenge by utilizing their APIs
+                  </li>
+                  <li>
+                    Used Next.js and react contexts to create mock login functionality, only displaying private event information to registered users
+                  </li>
+                  <li>
+                    Created neat and stylish components with the help of DaisyUI
                   </li>
                 </ul>
               </div>
