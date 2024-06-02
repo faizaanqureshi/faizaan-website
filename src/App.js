@@ -7,7 +7,7 @@ function App() {
         <h1 className='font-sans text-white font-bold text-4xl'>Faizaan Qureshi</h1>
         <h2 className='font-sans text-white font-medium text-2xl pt-6'>Software Engineer at Interac</h2>
         <p className='font-sans text-slate-400 pt-2 pb-8'>I design software solutions to solve complex problems and unleash my creativity</p>
-        <img class="hidden lg:inline lg:w-28 lg:h-28 lg:rounded-full" src="profile.png" alt="Faizaan Qureshi"></img>
+        <img class="hidden lg:inline lg:w-28 lg:h-28 lg:rounded-full" src="profile.jpg" alt="Faizaan Qureshi"></img>
         <div className='flex flex-row lg:pt-24'>
           <a href='https://linkedin.com/in/faizaan-qureshi'>
             <img className='w-8 h-8' src='linkedin.svg' />
@@ -51,9 +51,19 @@ function App() {
           <ol class="relative border-s border-white">
             <li class="mb-10 ms-6 flex flex-row justify-left">
               <div class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -start-1.5 border border-white"></div>
+              <img className='w-12 h-6' src='csc.webp' />
+              <div className='flex flex-col pl-6 pr-6'>
+                <time class="mb-1 text-sm font-normal leading-none text-gray-400">May 2024 - Present</time>
+                <h3 class="text-lg font-semibold text-white">Web Developer</h3>
+                <p className='font-sans text-slate-300'>University of Waterloo Computer Science Club</p>
+                <p className='font-sans text-slate-400 text-sm pt-2'>Tools Used: React.js, JavaScript, TypeScript, WSL, HTML/CSS</p>
+              </div>
+            </li>
+            <li class="mb-10 ms-6 flex flex-row justify-left">
+              <div class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -start-1.5 border border-white"></div>
               <img className='w-12 h-12' src='interac.png' />
               <div className='flex flex-col pl-6 pr-6'>
-                <time class="mb-1 text-sm font-normal leading-none text-gray-400">January 2024 - Present</time>
+                <time class="mb-1 text-sm font-normal leading-none text-gray-400">January 2024 - April 2024</time>
                 <h3 class="text-lg font-semibold text-white">Software Developer Intern</h3>
                 <p className='font-sans text-slate-300'>Interac Corp.</p>
                 <p className='font-sans text-slate-400 text-sm pt-2'>Tools Used: Java (Spring/Spring Boot), JUnit, Mockito, SonarQube, JIRA, Agile Project Management</p>
@@ -78,23 +88,22 @@ function App() {
             <div className='flex flex-row justify-left pb-6'>
               <div className='flex flex-col'>
                 <h2 className='font-sans text-white font-medium text-xl'>Laurier Flow</h2>
-                <p className='font-sans text-slate-200'>Lead Developer</p>
-                <p className='font-sans text-slate-400'>Deployment end of Q1 2024</p>
-                <a href='https://laurier-flow.vercel.app/'>
-                  <p className='font-sans text-slate-300'>laurier-flow.vercel.app</p>
+                <p className='font-sans text-slate-200'>Lead Software Engineer/Co-Founder</p>
+                <a href='https://laurierflow.ca/'>
+                  <p className='font-sans text-slate-300'>laurierflow.ca</p>
                 </a>
                 <ul class="space-y-1 text-slate-400 pl-5 list-disc list-outside pt-2">
                   <li>
-                    Developed a course discovery platform by designing a web scraper using Node.js and Puppeteer to gather course
-                    registration numbers efficiently, ensuring up-to-date information for students
+                    Led product management, integrating Jira with Git, and established Git repositories and deployment protocols on Vercel, enhancing team workflow and productivity.
                   </li>
                   <li>
-                    Created splash screens and user interfaces for courses and professors using React.js and Next.js, along
-                    with Tailwind CSS as a styling framework
+                    Created a backend with seamless handling of course information sections and other data, through the implementation of Supabase (PostgreSQL). Utilized database functions and triggers to automatically update tables on creation actions
                   </li>
                   <li>
-                    Established a robust backend infrastructure with Supabase (PostgreSQL), facilitating data storage for courses,
-                    professors, users, sections, and reviews
+                    Enhanced data acquisition and processing, collecting data from the Laurier Website by developing a scraper using Puppeteer. Further optimized the process by implementing a CRON job handling errors with exponential backoff
+                  </li>
+                  <li>
+                    Delivered a user-friendly front end with course sorting and filtering, and engaging course and review displays. Achieved this through use of Next.js for server-side rendering, along with React hooks for client-side dynamics
                   </li>
                 </ul>
               </div>
