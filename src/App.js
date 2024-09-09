@@ -5,7 +5,7 @@ function App() {
     <div className='flex flex-col justify-between lg:flex-row'>
       <div className='lg:sticky lg:top-0 flex flex-col pl-6 pr-6 pt-6 justify-between lg:max-h-screen lg:justify-center lg:flex-1 lg:ml-10 lg:mr-10'>
         <h1 className='font-sans text-white font-bold text-4xl'>Faizaan Qureshi</h1>
-        <h2 className='font-sans text-white font-medium text-2xl pt-6'>Software Engineer at Interac</h2>
+        <h2 className='font-sans text-white font-medium text-2xl pt-6'>Software Engineer at OMERS</h2>
         <p className='font-sans text-slate-400 pt-2 pb-8'>I design software solutions to solve complex problems and unleash my creativity</p>
         <img class="hidden lg:inline lg:w-28 lg:h-28 lg:rounded-full" src="profile.jpg" alt="Faizaan Qureshi"></img>
         <div className='flex flex-row lg:pt-24'>
@@ -49,6 +49,16 @@ function App() {
         <div class='lg:pl-2'>
           <h2 className='font-sans text-white font-medium text-2xl pb-6'>Experience</h2>
           <ol class="relative border-s border-white">
+            <li class="ms-6 flex flex-row justify-left">
+              <div class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -start-1.5 border border-white"></div>
+              <img className='w-12 h-12' src='omers.png' />
+              <div className='flex flex-col pl-6 pr-6'>
+                <time class="mb-1 text-sm font-normal leading-none text-gray-400">September 2024 - December 2024</time>
+                <h3 class="text-lg font-semibold text-white">Fullstack Software Engineer Intern</h3>
+                <p className='font-sans text-slate-300'>OMERS</p>
+                <p className='font-sans text-slate-400 text-sm pt-2'>Tools Used: Next.js, Nest.js, TypeScript, JIRA, Node.js</p>
+              </div>
+            </li>
             <li class="mb-10 ms-6 flex flex-row justify-left">
               <div class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -start-1.5 border border-white"></div>
               <img className='w-12 h-6' src='csc.webp' />
@@ -64,7 +74,7 @@ function App() {
               <img className='w-12 h-12' src='interac.png' />
               <div className='flex flex-col pl-6 pr-6'>
                 <time class="mb-1 text-sm font-normal leading-none text-gray-400">January 2024 - April 2024</time>
-                <h3 class="text-lg font-semibold text-white">Software Developer Intern</h3>
+                <h3 class="text-lg font-semibold text-white">Backend Software Developer Intern</h3>
                 <p className='font-sans text-slate-300'>Interac Corp.</p>
                 <p className='font-sans text-slate-400 text-sm pt-2'>Tools Used: Java (Spring/Spring Boot), JUnit, Mockito, SonarQube, JIRA, Agile Project Management</p>
               </div>
@@ -74,7 +84,7 @@ function App() {
               <img className='w-12 h-12' src='omers.png' />
               <div className='flex flex-col pl-6 pr-6'>
                 <time class="mb-1 text-sm font-normal leading-none text-gray-400">January 2023 - April 2023</time>
-                <h3 class="text-lg font-semibold text-white">Software Engineer Intern</h3>
+                <h3 class="text-lg font-semibold text-white">Backend Software Engineer Intern</h3>
                 <p className='font-sans text-slate-300'>OMERS</p>
                 <p className='font-sans text-slate-400 text-sm pt-2'>Tools Used: Java (Spring/Spring Boot), React.js, JUnit, Mockito, Postman, Swagger, SonarQube, JIRA, Agile Project Management</p>
               </div>
