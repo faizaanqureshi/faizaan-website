@@ -53,7 +53,7 @@ function App() {
               <div class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -start-1.5 border border-white"></div>
               <img className='w-12 h-12' src='omers.png' />
               <div className='flex flex-col pl-6 pr-6'>
-                <time class="mb-1 text-sm font-normal leading-none text-gray-400">September 2024 - December 2024</time>
+                <time class="mb-1 text-sm font-normal leading-none text-gray-400">September 2024 - Present</time>
                 <h3 class="text-lg font-semibold text-white">Fullstack Software Engineer Intern</h3>
                 <p className='font-sans text-slate-300'>OMERS</p>
                 <p className='font-sans text-slate-400 text-sm pt-2'>Tools Used: Next.js, Nest.js, TypeScript, JIRA, Node.js</p>
