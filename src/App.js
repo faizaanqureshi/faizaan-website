@@ -49,7 +49,7 @@ function App() {
         <div class='lg:pl-2'>
           <h2 className='font-sans text-white font-medium text-2xl pb-6'>Experience</h2>
           <ol class="relative border-s border-white">
-            <li class="ms-6 flex flex-row justify-left">
+            <li class="mb-10 ms-6 flex flex-row justify-left">
               <div class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -start-1.5 border border-white"></div>
               <img className='w-12 h-12' src='omers.png' />
               <div className='flex flex-col pl-6 pr-6'>
