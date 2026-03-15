@@ -216,7 +216,7 @@ button { background: none; border: none; cursor: pointer; font: inherit; color: 
   border-bottom: 1px solid var(--border);
 }
 
-.section-header { display: flex; align-items: center; gap: 24px; margin-bottom: 56px; }
+.section-header { display: flex; align-items: center; gap: 24px; margin-bottom: 40px; }
 
 .section-label {
   font-size: 10px;
@@ -239,7 +239,7 @@ button { background: none; border: none; cursor: pointer; font: inherit; color: 
 /* ============================================
    EXPERIENCE
    ============================================ */
-.experience-list { display: flex; flex-direction: column; }
+.experience-list { display: flex; flex-direction: column; max-width: 820px; }
 
 .exp-item {
   display: grid;
@@ -248,8 +248,12 @@ button { background: none; border: none; cursor: pointer; font: inherit; color: 
   align-items: flex-start;
   padding: 32px 0;
   border-bottom: 1px solid var(--border);
+  border-left: 2px solid transparent;
+  padding-left: 0;
+  transition: border-color 0.25s var(--ease);
 }
 .exp-item:first-child { border-top: 1px solid var(--border); }
+.exp-item:hover { border-left-color: var(--border-mid); padding-left: 12px; }
 
 .exp-logo-wrap { padding-top: 3px; }
 
@@ -329,7 +333,7 @@ button { background: none; border: none; cursor: pointer; font: inherit; color: 
 /* ============================================
    EDUCATION
    ============================================ */
-.education-list { display: flex; flex-direction: column; }
+.education-list { display: flex; flex-direction: column; max-width: 820px; }
 
 .edu-item {
   display: grid;
@@ -361,7 +365,7 @@ button { background: none; border: none; cursor: pointer; font: inherit; color: 
 /* ============================================
    PROJECTS
    ============================================ */
-.projects-list { display: flex; flex-direction: column; }
+.projects-list { display: flex; flex-direction: column; max-width: 820px; }
 
 .project-item {
   padding: 32px 0;
@@ -464,11 +468,13 @@ button { background: none; border: none; cursor: pointer; font: inherit; color: 
   .mobile-nav { display: flex; }
   .main-content { margin-left: 0; padding-top: 56px; }
 
-  .hero-section { padding: 48px 24px 72px; min-height: calc(100vh - 56px); }
-  .hero-inner { flex-direction: column-reverse; gap: 32px; }
-  .hero-photo { width: 100%; height: 220px; object-position: center 20%; }
-  .hero-photo-frame { display: none; }
-  .hero-scroll { left: 24px; bottom: 24px; }
+  .hero-section { padding: 48px 28px 72px; min-height: calc(100vh - 56px); }
+
+  .hero-inner { flex-direction: column; gap: 0; }
+
+  .hero-photo-wrap { display: none; }
+
+  .hero-scroll { left: 28px; bottom: 28px; }
 
   .content-section { padding: 48px 24px; }
 
