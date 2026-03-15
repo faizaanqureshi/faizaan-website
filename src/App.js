@@ -1,286 +1,301 @@
+import { useState, useEffect, useRef } from 'react';
 import './App.css';
 
-function App() {
+const SECTIONS = ['home', 'experience', 'education', 'projects'];
+
+const EXPERIENCE = [
+  {
+    logo: 'casca.jpeg',
+    company: 'Casca',
+    badge: 'YC S23',
+    role: 'Software Engineer Intern',
+    period: 'Feb 2025 — Jan 2026',
+    tools: ['Next.js', 'tRPC', 'Mapbox', 'Python', 'AWS S3', 'OpenAI'],
+  },
+  {
+    logo: 'omers.png',
+    company: 'OMERS',
+    role: 'Fullstack Software Engineer Intern',
+    period: 'Sep 2024 — Dec 2024',
+    tools: ['Next.js', 'Nest.js', 'TypeScript', 'Node.js'],
+  },
+  {
+    logo: 'interac.png',
+    company: 'Interac Corp.',
+    role: 'Backend Software Developer Intern',
+    period: 'Jan 2024 — Apr 2024',
+    tools: ['Java', 'Spring Boot', 'JUnit', 'SonarQube'],
+  },
+  {
+    logo: 'omers.png',
+    company: 'OMERS',
+    role: 'Backend Software Engineer Intern',
+    period: 'Jan 2023 — Apr 2023',
+    tools: ['Java', 'Spring Boot', 'React.js', 'Postman'],
+  },
+];
+
+const PROJECTS = [
+  {
+    name: 'Laurier Flow',
+    role: 'Lead Engineer & Co-Founder',
+    url: 'https://laurierflow.ca/',
+    urlLabel: 'laurierflow.ca',
+    desc: 'A full-stack course review platform for Laurier students. Built with Next.js, Supabase (PostgreSQL), and a Puppeteer scraper with CRON-based automation and exponential backoff.',
+  },
+  {
+    name: 'The Blessed Path',
+    role: 'Founder',
+    url: 'https://theblessedpath.faith',
+    urlLabel: 'theblessedpath.faith',
+desc: 'An Islamic scripture platform supporting 40+ languages. Powered by OpenAI with dynamic scripture citations, built on React.js, Flask, and AWS Lambda.',
+  },
+  {
+    name: 'Hack the North — Frontend Challenge',
+    url: 'https://htn-fe-challenge.vercel.app/',
+    urlLabel: 'htn-fe-challenge.vercel.app',
+    desc: 'A polished event viewer for Hack the North with mock authentication and private event gating. Built with Next.js, React contexts, and DaisyUI.',
+  },
+  {
+    name: 'Chess++',
+    url: 'http://bit.ly/3TXyw0D',
+    urlLabel: 'bit.ly/3TXyw0D',
+    desc: 'A C++ chess engine built from scratch with UML-driven design. Applies Observer, Factory, and MVC patterns with an X11 GUI for real-time move highlighting.',
+  },
+  {
+    name: 'Astroworld',
+    url: 'https://bit.ly/3Q5RfBN',
+    urlLabel: 'bit.ly/3Q5RfBN',
+    desc: 'A Java desktop game and jukebox application — a high school labour of love. Features audio visualisation, a mini game, sorting algorithms, and persistent file storage.',
+    note: true,
+  },
+];
+
+/* -----------------------------------------------
+   Fade-in hook (IntersectionObserver)
+----------------------------------------------- */
+function useFadeIn() {
+  const ref = useRef(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { el.classList.add('visible'); obs.disconnect(); } },
+      { threshold: 0.12 }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+  return ref;
+}
+
+/* -----------------------------------------------
+   Reusable section block
+----------------------------------------------- */
+function Section({ id, label, intro, children }) {
+  const ref = useFadeIn();
   return (
-    <div className='flex flex-col justify-between lg:flex-row'>
-      <div className='lg:sticky lg:top-0 flex flex-col pl-6 pr-6 pt-6 justify-between lg:max-h-screen lg:justify-center lg:flex-1 lg:ml-10 lg:mr-10'>
-        <h1 className='font-sans text-white font-bold text-4xl'>Faizaan Qureshi</h1>
-        <h2 className='font-sans text-white font-medium text-2xl pt-6'>Software Engineer</h2>
-        <p className='font-sans text-slate-400 pt-2 pb-8'>I design software solutions to solve complex problems and unleash my creativity</p>
-        <img class="hidden lg:inline lg:w-28 lg:h-28 lg:rounded-full" src="profile.jpg" alt="Faizaan Qureshi"></img>
-        <div className='flex flex-row lg:pt-24'>
-          <a href='https://linkedin.com/in/faizaan-qureshi'>
-            <img className='w-8 h-8' src='linkedin.svg' />
-          </a>
-          <a href='https://github.com/faizaanqureshi'>
-            <img className='w-8 h-8 ml-6' src='github.svg' />
-          </a>
-          <a href='https://faizaanqureshi.medium.com'>
-            <img className='w-8 h-8 ml-6' src='medium.svg' />
-          </a>
-          <a href='https://instagram.com/faizaanqureshi_/'>
-            <img className='w-8 h-8 ml-6' src='instagram.svg' />
-          </a>
-        </div>
-        <a href='Faizaan Qureshi Resume.pdf' target='_blank' rel='noreferrer' className='mt-8 inline-block w-fit px-5 py-2 text-sm font-medium text-white border border-slate-500 rounded-full hover:border-white hover:bg-white hover:text-slate-900 transition-all duration-200'>View Resume ↗</a>
-        <hr class="lg:hidden h-px mt-10 bg-gray-200 border-0 dark:bg-gray-400"></hr>
+    <section id={id} className="content-section fade-in" ref={ref}>
+      <div className="section-header">
+        <span className="section-label">{label}</span>
+        <div className="section-line" />
       </div>
-      <div className='flex flex-col justify-between p-8 lg:flex-1 lg:mr-10 lg:overflow-auto'>
-        <div className='flex flex-col'>
-          <h2 className='font-sans text-white font-medium text-2xl pb-2'>Education</h2>
-          <p className='font-sans text-slate-400 pt-2 pb-8'>I'm a student enrolled in a double degree program, allowing me to study both Computer Science and Business Administration. This combination enables me to internalize and communicate the needs of stakeholders and develop solutions that are tailored for their needs</p>
-          <div className='flex flex-row justify-left pb-6'>
-            <img className='w-20 h-20' src='waterloo.png' />
-            <div className='flex flex-col pl-6 pr-6'>
-              <h2 className='font-sans text-white font-medium text-xl'>University of Waterloo</h2>
-              <p className='font-sans text-slate-300'>Honours Bachelor of Computer Science</p>
-              <p className='font-sans text-slate-400 text-sm'>Expected May 2026</p>
-              <p className='font-sans text-slate-400 text-sm pt-2'>Related Coursework: Data Structures & Algorithms, Object Oriented Programming, Computer Design, Enumeration and Graph Theory, Optimization, Logic & Computation, Statistics</p>
-            </div>
-          </div>
-          <div className='flex flex-row justify-left'>
-            <img className='w-20 h-20' src='laurier.png' />
-            <div className='flex flex-col pl-6 pr-6'>
-              <h2 className='font-sans text-white font-medium text-xl'>Wilfrid Laurier University</h2>
-              <p className='font-sans text-slate-300'>Honours Bachelor of Business Administration</p>
-              <p className='font-sans text-slate-400 text-sm'>Expected May 2026</p>
-              <p className='font-sans text-slate-400 text-sm pt-2'>Related Coursework: Financial Accounting, Managerial Accounting, Finance I and II, Marketing Management, Human Resources Management, Business Law, Organizational Behaviour</p>
-            </div>
-          </div>
-        </div>
-        <hr class="h-px mt-10 mb-6 bg-gray-200 border-0 dark:bg-gray-400"></hr>
-        <div class='lg:pl-2'>
-          <h2 className='font-sans text-white font-medium text-2xl pb-6'>Experience</h2>
-          <ol class="relative border-s border-white">
-            <li class="mb-10 ms-6 flex flex-row justify-left">
-              <div class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -start-1.5 border border-white"></div>
-              <img className='w-12 h-12' src='casca.jpeg' />
-              <div className='flex flex-col pl-6 pr-6'>
-                <time class="mb-1 text-sm font-normal leading-none text-gray-400">February 2025 - January 2026</time>
-                <h3 class="text-lg font-semibold text-white">Software Engineer Intern</h3>
-                <p className='font-sans text-slate-300'>Casca (YC S23)</p>
-                <p className='font-sans text-slate-400 text-sm pt-2'>Tools Used: Next.js, tRPC, Mapbox, Python, AWS S3, OpenAI APIs, Cursor</p>
-              </div>
-            </li>
-            <li class="mb-10 ms-6 flex flex-row justify-left">
-              <div class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -start-1.5 border border-white"></div>
-              <img className='w-12 h-12' src='omers.png' />
-              <div className='flex flex-col pl-6 pr-6'>
-                <time class="mb-1 text-sm font-normal leading-none text-gray-400">September 2024 - December 2024</time>
-                <h3 class="text-lg font-semibold text-white">Fullstack Software Engineer Intern</h3>
-                <p className='font-sans text-slate-300'>OMERS</p>
-                <p className='font-sans text-slate-400 text-sm pt-2'>Tools Used: Next.js, Nest.js, TypeScript, JIRA, Node.js</p>
-              </div>
-            </li>
-            <li class="mb-10 ms-6 flex flex-row justify-left">
-              <div class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -start-1.5 border border-white"></div>
-              <img className='w-12 h-6' src='csc.webp' />
-              <div className='flex flex-col pl-6 pr-6'>
-                <time class="mb-1 text-sm font-normal leading-none text-gray-400">May 2024 - Present</time>
-                <h3 class="text-lg font-semibold text-white">Web Developer</h3>
-                <p className='font-sans text-slate-300'>University of Waterloo Computer Science Club</p>
-                <p className='font-sans text-slate-400 text-sm pt-2'>Tools Used: React.js, JavaScript, TypeScript, WSL, HTML/CSS</p>
-              </div>
-            </li>
-            <li class="mb-10 ms-6 flex flex-row justify-left">
-              <div class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -start-1.5 border border-white"></div>
-              <img className='w-12 h-12' src='interac.png' />
-              <div className='flex flex-col pl-6 pr-6'>
-                <time class="mb-1 text-sm font-normal leading-none text-gray-400">January 2024 - April 2024</time>
-                <h3 class="text-lg font-semibold text-white">Backend Software Developer Intern</h3>
-                <p className='font-sans text-slate-300'>Interac Corp.</p>
-                <p className='font-sans text-slate-400 text-sm pt-2'>Tools Used: Java (Spring/Spring Boot), JUnit, Mockito, SonarQube, JIRA, Agile Project Management</p>
-              </div>
-            </li>
-            <li class="ms-6 flex flex-row justify-left">
-              <div class="absolute w-3 h-3 bg-gray-200 rounded-full mt-1.5 -start-1.5 border border-white"></div>
-              <img className='w-12 h-12' src='omers.png' />
-              <div className='flex flex-col pl-6 pr-6'>
-                <time class="mb-1 text-sm font-normal leading-none text-gray-400">January 2023 - April 2023</time>
-                <h3 class="text-lg font-semibold text-white">Backend Software Engineer Intern</h3>
-                <p className='font-sans text-slate-300'>OMERS</p>
-                <p className='font-sans text-slate-400 text-sm pt-2'>Tools Used: Java (Spring/Spring Boot), React.js, JUnit, Mockito, Postman, Swagger, SonarQube, JIRA, Agile Project Management</p>
-              </div>
-            </li>
-          </ol>
-        </div>
-        <hr class="h-px mt-10 mb-6 bg-gray-200 border-0 dark:bg-gray-400"></hr>
-        <div className='flex flex-col justify-between'>
-          <div className='flex flex-col'>
-            <h2 className='font-sans text-white font-medium text-2xl pb-6'>Projects</h2>
-            <div className='flex flex-row justify-left pb-6'>
-              <div className='flex flex-col'>
-                <h2 className='font-sans text-white font-medium text-xl'>Laurier Flow</h2>
-                <p className='font-sans text-slate-200'>Lead Software Engineer/Co-Founder</p>
-                <a href='https://laurierflow.ca/'>
-                  <p className='font-sans text-slate-300'>laurierflow.ca</p>
-                </a>
-                <ul class="space-y-1 text-slate-400 pl-5 list-disc list-outside pt-2">
-                  <li>
-                    Led product management, integrating Jira with Git, and established Git repositories and deployment protocols on Vercel, enhancing team workflow and productivity.
-                  </li>
-                  <li>
-                    Created a backend with seamless handling of course information sections and other data, through the implementation of Supabase (PostgreSQL). Utilized database functions and triggers to automatically update tables on creation actions
-                  </li>
-                  <li>
-                    Enhanced data acquisition and processing, collecting data from the Laurier Website by developing a scraper using Puppeteer. Further optimized the process by implementing a CRON job handling errors with exponential backoff
-                  </li>
-                  <li>
-                    Delivered a user-friendly front end with course sorting and filtering, and engaging course and review displays. Achieved this through use of Next.js for server-side rendering, along with React hooks for client-side dynamics
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div className='flex flex-row justify-left pb-6'>
-              <div className='flex flex-col'>
-                <h2 className='font-sans text-white font-medium text-xl'>Hack the North - Frontend Challenge</h2>
-                <a href='https://htn-fe-challenge.vercel.app/'>
-                  <p className='font-sans text-slate-300'>htn-fe-challenge.vercel.app</p>
-                </a>
-                <ul class="space-y-1 text-slate-400 pl-5 list-disc list-outside pt-2">
-                  <li>
-                    Deployed a front end site to display Hack the North's events as part of their organizer challenge by utilizing their APIs
-                  </li>
-                  <li>
-                    Used Next.js and react contexts to create mock login functionality, only displaying private event information to registered users
-                  </li>
-                  <li>
-                    Created neat and stylish components with the help of DaisyUI
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div className='flex flex-row justify-left pb-6'>
-              <div className='flex flex-col'>
-                <h2 className='font-sans text-white font-medium text-xl'>The Blessed Path</h2>
-                <a href='https://theblessedpath.faith'>
-                  <p className='font-sans text-slate-300'>theblessedpath.faith</p>
-                </a>
-                <ul class="space-y-1 text-slate-400 pl-5 list-disc list-outside pt-2">
-                  <li>
-                    Used Material UI and React.js to create a platform that allows users to explore Islamic scriptures in over 40 languages
-                  </li>
-                  <li>
-                    Integrated OpenAI’s APIs and LLMs to power an interactive chatbot directly within the platform, allowing users to get
-                    accurate information by providing dynamic citations from scriptures
-                  </li>
-                  <li>
-                    Hosted the frontend on Vercel and implemented a Flask backend hosted using AWS Lambda, ensuring reduced costs
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div className='flex flex-row justify-left pb-6'>
-              <div className='flex flex-col'>
-                <h2 className='font-sans text-white font-medium text-xl'>Chess++</h2>
-                <a href='http://bit.ly/3TXyw0D'>
-                  <p className='font-sans text-slate-300'>bit.ly/3TXyw0D</p>
-                </a>
-                <ul class="space-y-1 text-slate-400 pl-5 list-disc list-outside pt-2">
-                  <li>
-                    Engineered a C++ application from the ground up, designing the structure with UML diagrams
-                  </li>
-                  <li>
-                    Utilized Object-Oriented principles, polymorphism, and design patterns including Observer, Factory,
-                    MVC, and other engineering principles to increase cohesion and reduce coupling between classes and libraries
-                  </li>
-                  <li>
-                    Developed GUI using X11, mapping user screen clicks to the window allowing for user I/O using mouse clicks.
-                  </li>
-                  <li>
-                    Displayed valid and invalid moves for players by highlighting squares
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div className='flex flex-row justify-left pb-6'>
-              <div className='flex flex-col'>
-                <h2 className='font-sans text-white font-medium text-xl'>Astroworld</h2>
-                <a href='https://bit.ly/3Q5RfBN'>
-                  <p className='font-sans text-slate-300'>bit.ly/3Q5RfBN</p>
-                </a>
-                <ul class="space-y-1 text-slate-400 pl-5 list-disc list-outside pt-2">
-                  <li>
-                    Developed a desktop game/jukebox application based around a popular musician using Java (Processing IDE)
-                  </li>
-                  <li>
-                    Implemented multiple sorting algorithms including selection sort and insertion sort using recursive elements and implemented file sav‑
-                    ing/storage to store persistent user information. Developed a plethora of objects and instances of graphical components to animate the user
-                    experience
-                  </li>
-                  <li>
-                    Mapped .wav sounds files using their frequencies and wavelengths and displayed them to the user as an aesthetic media player. Implemented
-                    a modified version of the ”chrome dinosaur game” to be paired with the music playing functionality
-                  </li>
-                </ul>
-                <p className='font-sans text-slate-300 pt-2 underline'>This project is near and dear to my ❤ I developed this in high school and poured my soul into it. While it may not have the best tech stack, I assure you it deserves your attention</p>
-              </div>
-            </div>
-            <div className='flex flex-row justify-left pb-6'>
-              <div className='flex flex-col'>
-                <h2 className='font-sans text-white font-medium text-xl'>COVID-19 Statistics</h2>
-                <a href='https://bit.ly/3oDpbtW'>
-                  <p className='font-sans text-slate-300'>bit.ly/3oDpbtW</p>
-                </a>
-                <ul class="space-y-1 text-slate-400 pl-5 list-disc list-outside pt-2">
-                  <li>
-                    Developed an application that scraped the web for the latest COVID‑19 statistics including total cases, recoveries, and more from across the
-                    globe using the JSoup Java library
-                  </li>
-                  <li>
-                    Displayed the information scraped using an algorithm that separated information by continent. Created a window on the desktop and gave
-                    users several options and drop down menus where they could search for worldwide data, individual continents, or country specific information.
-                  </li>
-                  <li>
-                    Demonstrated proficiency in JavaFX and the JavaFX Scene Builder which was used to design layouts, menus, and scenes for the user to
-                    interact with
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div className='flex flex-row justify-left pb-6'>
-              <div className='flex flex-col'>
-                <h2 className='font-sans text-white font-medium text-xl'>Bright Mark</h2>
-                <a href='https://bit.ly/3PYDmWN'>
-                  <p className='font-sans text-slate-300'>bit.ly/3PYDmWN</p>
-                </a>
-                <ul class="space-y-1 text-slate-400 pl-5 list-disc list-outside pt-2">
-                  <li>
-                    Collaborated to develop an application that records classes and grades for students, automatically calculating student averages
-                  </li>
-                  <li>
-                    Saved the information to the OS file system for persistent memory
-                  </li>
-                  <li>
-                    Used EasyGUI to develop a graphical interface for ease in recording new data
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div className='flex flex-row justify-left'>
-              <div className='flex flex-col'>
-                <h2 className='font-sans text-white font-medium text-xl'>FM Radio</h2>
-                <a href='https://bit.ly/3zmvJSW'>
-                  <p className='font-sans text-slate-300'>bit.ly/3zmvJSW</p>
-                </a>
-                <ul class="space-y-1 text-slate-400 pl-5 list-disc list-outside pt-2">
-                  <li>
-                    Created a circuit for an FM Radio using an Arduino, breadboard, speakers, radio modules, LEDs, LCD Displays, and other electronic components
-                  </li>
-                  <li>
-                    Designed schematic diagrams for the circuit using Tinkercad
-                  </li>
-                  <li>
-                    Coded the Arduino in C to adjust the frequency of the radio based on the circuits state and dials/remote control IR sensors
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+      {intro && <p className="section-intro">{intro}</p>}
+      {children}
+    </section>
   );
 }
 
-export default App;
+/* -----------------------------------------------
+   App
+----------------------------------------------- */
+export default function App() {
+  const [active, setActive] = useState('home');
+
+  /* Track active section on scroll */
+  useEffect(() => {
+    const handler = () => {
+      let current = 'home';
+      for (const id of SECTIONS) {
+        const el = document.getElementById(id);
+        if (el && window.scrollY >= el.offsetTop - 260) current = id;
+      }
+      setActive(current);
+    };
+    window.addEventListener('scroll', handler, { passive: true });
+    return () => window.removeEventListener('scroll', handler);
+  }, []);
+
+  const scrollTo = (id) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+
+  return (
+    <div className="site-wrapper">
+
+      {/* ── SIDEBAR ──────────────────────────────── */}
+      <aside className="sidebar">
+        <div>
+          <div className="sidebar-monogram">F.Q.</div>
+          <nav className="sidebar-nav">
+            {SECTIONS.map(s => (
+              <button
+                key={s}
+                className={`nav-item${active === s ? ' active' : ''}`}
+                onClick={() => scrollTo(s)}
+              >
+                {s.toUpperCase()}
+              </button>
+            ))}
+          </nav>
+        </div>
+        <div className="sidebar-bottom">
+          <div className="social-links">
+            <a href="https://linkedin.com/in/faizaan-qureshi" target="_blank" rel="noreferrer" aria-label="LinkedIn">
+              <img src="linkedin.svg" alt="" />
+            </a>
+            <a href="https://github.com/faizaanqureshi" target="_blank" rel="noreferrer" aria-label="GitHub">
+              <img src="github.svg" alt="" />
+            </a>
+            <a href="https://faizaanqureshi.medium.com" target="_blank" rel="noreferrer" aria-label="Medium">
+              <img src="medium.svg" alt="" />
+            </a>
+            <a href="https://instagram.com/faizaanqureshi_/" target="_blank" rel="noreferrer" aria-label="Instagram">
+              <img src="instagram.svg" alt="" />
+            </a>
+          </div>
+          <a href="Faizaan Qureshi Resume.pdf" target="_blank" rel="noreferrer" className="resume-btn">
+            RÉSUMÉ ↗
+          </a>
+          <p className="sidebar-copyright">© 2026</p>
+        </div>
+      </aside>
+
+      {/* ── MOBILE TOP NAV ───────────────────────── */}
+      <nav className="mobile-nav">
+        <span className="mobile-monogram">F.Q.</span>
+        <div className="mobile-nav-links">
+          {SECTIONS.map(s => (
+            <button
+              key={s}
+              className={active === s ? 'active' : ''}
+              onClick={() => scrollTo(s)}
+            >
+              {s.toUpperCase()}
+            </button>
+          ))}
+        </div>
+      </nav>
+
+      {/* ── MAIN ─────────────────────────────────── */}
+      <main className="main-content">
+
+        {/* HERO */}
+        <section id="home" className="hero-section">
+          <div className="hero-inner">
+            <div className="hero-text">
+              <h1 className="hero-name">
+                <span>FAIZAAN</span>
+                <span>QURESHI</span>
+              </h1>
+              <p className="hero-title">Software Engineer</p>
+              <div className="hero-rule" />
+              <p className="hero-desc">
+                I build software that solves real problems — blending technical rigour
+                with a business-minded perspective cultivated through a Computer Science
+                &amp; BBA double degree.
+              </p>
+            </div>
+            <div className="hero-photo-wrap">
+              <img src="profile.jpg" alt="Faizaan Qureshi" className="hero-photo" />
+              <div className="hero-photo-frame" />
+            </div>
+          </div>
+          <div className="hero-scroll">
+            <span>scroll</span>
+            <div className="hero-scroll-line" />
+          </div>
+        </section>
+
+        {/* EXPERIENCE */}
+        <Section id="experience" label="Experience">
+          <div className="experience-list">
+            {EXPERIENCE.map((exp, i) => (
+              <div key={i} className="exp-item">
+                <div className="exp-logo-wrap">
+                  <img src={exp.logo} alt={exp.company} className="exp-logo" />
+                </div>
+                <div>
+                  <div className="exp-header">
+                    <h3 className="exp-role">{exp.role}</h3>
+                    <span className="exp-period">{exp.period}</span>
+                  </div>
+                  <div className="exp-company-row">
+                    <span className="exp-company">{exp.company}</span>
+                    {exp.badge && <span className="exp-badge">{exp.badge}</span>}
+                  </div>
+                  <div className="exp-tools">
+                    {exp.tools.map(t => <span key={t} className="tool-tag">{t}</span>)}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </Section>
+
+        {/* EDUCATION */}
+        <Section
+          id="education"
+          label="Education"
+          intro="Enrolled in a double degree program — Computer Science at Waterloo and Business Administration at Laurier — bridging technical depth with strategic business thinking."
+        >
+          <div className="education-list">
+            <div className="edu-item">
+              <img src="waterloo.png" alt="University of Waterloo" className="edu-logo" />
+              <div>
+                <h3 className="edu-school">University of Waterloo</h3>
+                <p className="edu-degree">Honours Bachelor of Computer Science</p>
+                <p className="edu-period">Expected May 2026</p>
+              </div>
+            </div>
+            <div className="edu-item">
+              <img src="laurier.png" alt="Wilfrid Laurier University" className="edu-logo" />
+              <div>
+                <h3 className="edu-school">Wilfrid Laurier University</h3>
+                <p className="edu-degree">Honours Bachelor of Business Administration</p>
+                <p className="edu-period">Expected May 2026</p>
+              </div>
+            </div>
+          </div>
+        </Section>
+
+        {/* PROJECTS */}
+        <Section id="projects" label="Projects">
+          <div className="projects-list">
+            {PROJECTS.map((proj, i) => (
+              <div key={i} className={`project-item${proj.img ? ' has-image' : ''}`}>
+                {proj.img && (
+                  <img src={proj.img} alt={proj.name} className="project-img" />
+                )}
+                <div>
+                  <div className="project-header">
+                    <h3 className="project-name">{proj.name}</h3>
+                    <a href={proj.url} target="_blank" rel="noreferrer" className="project-link">
+                      {proj.urlLabel} ↗
+                    </a>
+                  </div>
+                  {proj.role && <p className="project-role">{proj.role}</p>}
+                  <p className="project-desc">{proj.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </Section>
+
+        <footer className="site-footer">
+          <p>Designed &amp; built by Faizaan Qureshi</p>
+          <a href="mailto:faizaanq@gmail.com">Get in touch ↗</a>
+        </footer>
+
+      </main>
+    </div>
+  );
+}
