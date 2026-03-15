@@ -8,30 +8,49 @@ const EXPERIENCE = [
     logo: 'casca.jpeg',
     company: 'Casca',
     badge: 'YC S23',
-    role: 'Software Engineer Intern',
+    role: 'Software Engineer',
     period: 'Feb 2025 — Jan 2026',
-    tools: ['Next.js', 'tRPC', 'Mapbox', 'Python', 'AWS S3', 'OpenAI'],
+    location: 'San Francisco, CA',
+    highlights: [
+      'Owned CRA compliance reporting for 5–10 large SBA banks — cut report creation from fully manual builds to ~10 minutes via a metadata-driven builder with joins, filters, aggregations, and exports.',
+      'Built an AI translation layer enabling automatic report generation from natural language, images, and external artifacts. Forward-deployed at Live Oak Bank, iterating directly with bankers.',
+      'Delivered sub-second CRA geospatial mapping via an offline pipeline (Census TIGER → LMI enrichment → MBTiles → S3/Mapbox) with SOX-style immutability enforced by end-to-end Playwright tests.',
+    ],
+    tools: ['TypeScript', 'tRPC', 'Prisma', 'PostgreSQL', 'Next.js', 'Mapbox', 'Playwright', 'AWS'],
   },
   {
     logo: 'omers.png',
     company: 'OMERS',
-    role: 'Fullstack Software Engineer Intern',
+    role: 'Full-Stack Software Engineer Intern',
     period: 'Sep 2024 — Dec 2024',
-    tools: ['Next.js', 'Nest.js', 'TypeScript', 'Node.js'],
+    location: 'Toronto, ON',
+    highlights: [
+      "Contributed to the myOMERS pension dashboard redesign — OMERS' primary member-facing platform — building UI components (banners, pension summaries, timelines) integrated with Nest.js APIs via tRPC.",
+    ],
+    tools: ['Next.js', 'TypeScript', 'Tailwind', 'tRPC', 'Nest.js'],
   },
   {
     logo: 'interac.png',
     company: 'Interac Corp.',
-    role: 'Backend Software Developer Intern',
+    role: 'Back-End Software Developer Intern',
     period: 'Jan 2024 — Apr 2024',
-    tools: ['Java', 'Spring Boot', 'JUnit', 'SonarQube'],
+    location: 'Toronto, ON',
+    highlights: [
+      'Owned test quality across 4 critical payment microservices — lifted automated coverage from 40% → 80% and reduced production defects by 30%.',
+      'Implemented token-based CIAM access controls in Spring Boot APIs for fraud history retrieval, supporting PCI DSS compliance.',
+    ],
+    tools: ['Java', 'Spring Boot', 'JUnit', 'Mockito', 'SonarQube'],
   },
   {
     logo: 'omers.png',
     company: 'OMERS',
-    role: 'Backend Software Engineer Intern',
+    role: 'Back-End Software Engineer Intern',
     period: 'Jan 2023 — Apr 2023',
-    tools: ['Java', 'Spring Boot', 'React.js', 'Postman'],
+    location: 'Toronto, ON',
+    highlights: [
+      "Built Spring Boot APIs for Donna, OMERS' internal pension processing platform — handling fund transfers, account state changes, and business rules with 80%+ unit test coverage.",
+    ],
+    tools: ['Java', 'Spring Boot', 'PostgreSQL', 'MySQL', 'JUnit', 'Mockito'],
   },
 ];
 
@@ -41,39 +60,35 @@ const PROJECTS = [
     role: 'Lead Engineer & Co-Founder',
     url: 'https://laurierflow.ca/',
     urlLabel: 'laurierflow.ca',
-    desc: 'A full-stack course review platform for Laurier students. Built with Next.js, Supabase (PostgreSQL), and a Puppeteer scraper with CRON-based automation and exponential backoff.',
+    desc: 'Full-stack course review platform for Laurier students. Next.js, Supabase (PostgreSQL), and a Puppeteer scraper with CRON automation and exponential backoff.',
   },
   {
     name: 'The Blessed Path',
     role: 'Founder',
     url: 'https://theblessedpath.faith',
     urlLabel: 'theblessedpath.faith',
-desc: 'An Islamic scripture platform supporting 40+ languages. Powered by OpenAI with dynamic scripture citations, built on React.js, Flask, and AWS Lambda.',
+    desc: 'Islamic scripture platform supporting 40+ languages with an AI chatbot providing dynamic scripture citations. React.js, OpenAI APIs, Flask on AWS Lambda.',
   },
   {
     name: 'Hack the North — Frontend Challenge',
     url: 'https://htn-fe-challenge.vercel.app/',
     urlLabel: 'htn-fe-challenge.vercel.app',
-    desc: 'A polished event viewer for Hack the North with mock authentication and private event gating. Built with Next.js, React contexts, and DaisyUI.',
+    desc: 'Event viewer for Hack the North with mock authentication and private event gating. Next.js, React contexts, DaisyUI.',
   },
   {
     name: 'Chess++',
     url: 'http://bit.ly/3TXyw0D',
     urlLabel: 'bit.ly/3TXyw0D',
-    desc: 'A C++ chess engine built from scratch with UML-driven design. Applies Observer, Factory, and MVC patterns with an X11 GUI for real-time move highlighting.',
+    desc: 'C++ chess engine built from scratch with UML-driven design. Observer, Factory, and MVC patterns with an X11 GUI for real-time move highlighting.',
   },
   {
     name: 'Astroworld',
     url: 'https://bit.ly/3Q5RfBN',
     urlLabel: 'bit.ly/3Q5RfBN',
-    desc: 'A Java desktop game and jukebox application — a high school labour of love. Features audio visualisation, a mini game, sorting algorithms, and persistent file storage.',
-    note: true,
+    desc: 'Java desktop game and jukebox — a high school labour of love. Audio visualisation, a mini game, sorting algorithms, and persistent file storage.',
   },
 ];
 
-/* -----------------------------------------------
-   Fade-in hook (IntersectionObserver)
------------------------------------------------ */
 function useFadeIn() {
   const ref = useRef(null);
   useEffect(() => {
@@ -81,7 +96,7 @@ function useFadeIn() {
     if (!el) return;
     const obs = new IntersectionObserver(
       ([entry]) => { if (entry.isIntersecting) { el.classList.add('visible'); obs.disconnect(); } },
-      { threshold: 0.12 }
+      { threshold: 0.08 }
     );
     obs.observe(el);
     return () => obs.disconnect();
@@ -89,9 +104,6 @@ function useFadeIn() {
   return ref;
 }
 
-/* -----------------------------------------------
-   Reusable section block
------------------------------------------------ */
 function Section({ id, label, intro, children }) {
   const ref = useFadeIn();
   return (
@@ -106,13 +118,9 @@ function Section({ id, label, intro, children }) {
   );
 }
 
-/* -----------------------------------------------
-   App
------------------------------------------------ */
 export default function App() {
   const [active, setActive] = useState('home');
 
-  /* Track active section on scroll */
   useEffect(() => {
     const handler = () => {
       let current = 'home';
@@ -131,7 +139,6 @@ export default function App() {
   return (
     <div className="site-wrapper">
 
-      {/* ── SIDEBAR ──────────────────────────────── */}
       <aside className="sidebar">
         <div>
           <div className="sidebar-monogram">F.Q.</div>
@@ -169,26 +176,19 @@ export default function App() {
         </div>
       </aside>
 
-      {/* ── MOBILE TOP NAV ───────────────────────── */}
       <nav className="mobile-nav">
         <span className="mobile-monogram">F.Q.</span>
         <div className="mobile-nav-links">
           {SECTIONS.map(s => (
-            <button
-              key={s}
-              className={active === s ? 'active' : ''}
-              onClick={() => scrollTo(s)}
-            >
+            <button key={s} className={active === s ? 'active' : ''} onClick={() => scrollTo(s)}>
               {s.toUpperCase()}
             </button>
           ))}
         </div>
       </nav>
 
-      {/* ── MAIN ─────────────────────────────────── */}
       <main className="main-content">
 
-        {/* HERO */}
         <section id="home" className="hero-section">
           <div className="hero-inner">
             <div className="hero-text">
@@ -200,8 +200,7 @@ export default function App() {
               <div className="hero-rule" />
               <p className="hero-desc">
                 I build software that solves real problems — blending technical rigour
-                with a business-minded perspective cultivated through a Computer Science
-                &amp; BBA double degree.
+                with a business-minded perspective cultivated through a CS &amp; BBA double degree.
               </p>
             </div>
             <div className="hero-photo-wrap">
@@ -215,7 +214,6 @@ export default function App() {
           </div>
         </section>
 
-        {/* EXPERIENCE */}
         <Section id="experience" label="Experience">
           <div className="experience-list">
             {EXPERIENCE.map((exp, i) => (
@@ -231,7 +229,11 @@ export default function App() {
                   <div className="exp-company-row">
                     <span className="exp-company">{exp.company}</span>
                     {exp.badge && <span className="exp-badge">{exp.badge}</span>}
+                    <span className="exp-location">{exp.location}</span>
                   </div>
+                  <ul className="exp-highlights">
+                    {exp.highlights.map((h, j) => <li key={j}>{h}</li>)}
+                  </ul>
                   <div className="exp-tools">
                     {exp.tools.map(t => <span key={t} className="tool-tag">{t}</span>)}
                   </div>
@@ -241,11 +243,10 @@ export default function App() {
           </div>
         </Section>
 
-        {/* EDUCATION */}
         <Section
           id="education"
           label="Education"
-          intro="Enrolled in a double degree program — Computer Science at Waterloo and Business Administration at Laurier — bridging technical depth with strategic business thinking."
+          intro="Double degree in Computer Science and Business Administration — bridging technical depth with strategic thinking."
         >
           <div className="education-list">
             <div className="edu-item">
@@ -253,6 +254,7 @@ export default function App() {
               <div>
                 <h3 className="edu-school">University of Waterloo</h3>
                 <p className="edu-degree">Honours Bachelor of Computer Science</p>
+                <p className="edu-spec">Artificial Intelligence Specialization</p>
                 <p className="edu-period">Expected May 2026</p>
               </div>
             </div>
@@ -261,30 +263,25 @@ export default function App() {
               <div>
                 <h3 className="edu-school">Wilfrid Laurier University</h3>
                 <p className="edu-degree">Honours Bachelor of Business Administration</p>
+                <p className="edu-spec">President's Gold Scholarship</p>
                 <p className="edu-period">Expected May 2026</p>
               </div>
             </div>
           </div>
         </Section>
 
-        {/* PROJECTS */}
         <Section id="projects" label="Projects">
           <div className="projects-list">
             {PROJECTS.map((proj, i) => (
-              <div key={i} className={`project-item${proj.img ? ' has-image' : ''}`}>
-                {proj.img && (
-                  <img src={proj.img} alt={proj.name} className="project-img" />
-                )}
-                <div>
-                  <div className="project-header">
-                    <h3 className="project-name">{proj.name}</h3>
-                    <a href={proj.url} target="_blank" rel="noreferrer" className="project-link">
-                      {proj.urlLabel} ↗
-                    </a>
-                  </div>
-                  {proj.role && <p className="project-role">{proj.role}</p>}
-                  <p className="project-desc">{proj.desc}</p>
+              <div key={i} className="project-item">
+                <div className="project-header">
+                  <h3 className="project-name">{proj.name}</h3>
+                  <a href={proj.url} target="_blank" rel="noreferrer" className="project-link">
+                    {proj.urlLabel} ↗
+                  </a>
                 </div>
+                {proj.role && <p className="project-role">{proj.role}</p>}
+                <p className="project-desc">{proj.desc}</p>
               </div>
             ))}
           </div>
@@ -292,7 +289,7 @@ export default function App() {
 
         <footer className="site-footer">
           <p>Designed &amp; built by Faizaan Qureshi</p>
-          <a href="mailto:faizaanq@gmail.com">Get in touch ↗</a>
+          <a href="mailto:qfaizaan@gmail.com">Get in touch ↗</a>
         </footer>
 
       </main>
