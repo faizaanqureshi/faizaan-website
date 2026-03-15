@@ -22,6 +22,7 @@ function App() {
             <img className='w-8 h-8 ml-6' src='instagram.svg' />
           </a>
         </div>
+        <a href='Faizaan Qureshi Resume.pdf' target='_blank' rel='noreferrer' className='mt-8 inline-block w-fit px-5 py-2 text-sm font-medium text-white border border-slate-500 rounded-full hover:border-white hover:bg-white hover:text-slate-900 transition-all duration-200'>View Resume ↗</a>
         <hr class="lg:hidden h-px mt-10 bg-gray-200 border-0 dark:bg-gray-400"></hr>
       </div>
       <div className='flex flex-col justify-between p-8 lg:flex-1 lg:mr-10 lg:overflow-auto'>
@@ -33,6 +34,7 @@ function App() {
             <div className='flex flex-col pl-6 pr-6'>
               <h2 className='font-sans text-white font-medium text-xl'>University of Waterloo</h2>
               <p className='font-sans text-slate-300'>Honours Bachelor of Computer Science</p>
+              <p className='font-sans text-slate-400 text-sm'>Expected May 2026</p>
               <p className='font-sans text-slate-400 text-sm pt-2'>Related Coursework: Data Structures & Algorithms, Object Oriented Programming, Computer Design, Enumeration and Graph Theory, Optimization, Logic & Computation, Statistics</p>
             </div>
           </div>
@@ -41,6 +43,7 @@ function App() {
             <div className='flex flex-col pl-6 pr-6'>
               <h2 className='font-sans text-white font-medium text-xl'>Wilfrid Laurier University</h2>
               <p className='font-sans text-slate-300'>Honours Bachelor of Business Administration</p>
+              <p className='font-sans text-slate-400 text-sm'>Expected May 2026</p>
               <p className='font-sans text-slate-400 text-sm pt-2'>Related Coursework: Financial Accounting, Managerial Accounting, Finance I and II, Marketing Management, Human Resources Management, Business Law, Organizational Behaviour</p>
             </div>
           </div>
