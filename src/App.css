@@ -730,7 +730,12 @@
   .personal-quotes,
   .personal-duo {
     flex-direction: column;
-    gap: 2.5rem;
+    gap: 1.5rem;
+  }
+
+  .personal-duo {
+    margin-top: 2rem;
+    padding-top: 2rem;
   }
 
   .personal-divider {
