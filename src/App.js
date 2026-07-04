@@ -1,16 +1,23 @@
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import './App.css';
-
-const SECTIONS = ['home', 'experience', 'education', 'projects'];
 
 const EXPERIENCE = [
   {
+    logo: 'distyl.jpeg',
+    role: 'AI Engineer',
+    company: 'Distyl',
+    period: 'Aug 2026 — Present',
+    location: 'New York, NY',
+    desc: 'Joining as an AI Engineer, building applied AI solutions for enterprise clients.',
+    current: true,
+  },
+  {
     logo: 'casca.jpeg',
-    company: 'Casca',
-    badge: 'YC S23',
     role: 'Software Engineer',
+    company: 'Casca',
     period: 'Feb 2025 — Jan 2026',
     location: 'San Francisco, CA',
+    desc: 'Built AI-powered CRA compliance tooling and geospatial infrastructure for SBA banks.',
     highlights: [
       'Owned CRA compliance reporting for 5–10 large SBA banks — cut report creation from fully manual builds to ~10 minutes via a metadata-driven builder with joins, filters, aggregations, and exports.',
       'Built an AI translation layer enabling automatic report generation from natural language, images, and external artifacts. Forward-deployed at Live Oak Bank, iterating directly with bankers.',
@@ -20,21 +27,23 @@ const EXPERIENCE = [
   },
   {
     logo: 'omers.png',
-    company: 'OMERS',
     role: 'Full-Stack Software Engineer Intern',
+    company: 'OMERS',
     period: 'Sep 2024 — Dec 2024',
     location: 'Toronto, ON',
+    desc: "Contributed to the myOMERS pension dashboard redesign, OMERS’ primary member-facing platform.",
     highlights: [
-      "Contributed to the myOMERS pension dashboard redesign — OMERS' primary member-facing platform — building UI components (banners, pension summaries, timelines) integrated with Nest.js APIs via tRPC.",
+      "Contributed to the myOMERS pension dashboard redesign — OMERS’ primary member-facing platform — building UI components (banners, pension summaries, timelines) integrated with Nest.js APIs via tRPC.",
     ],
     tools: ['Next.js', 'TypeScript', 'Tailwind', 'tRPC', 'Nest.js'],
   },
   {
     logo: 'interac.png',
-    company: 'Interac Corp.',
     role: 'Back-End Software Developer Intern',
+    company: 'Interac Corp.',
     period: 'Jan 2024 — Apr 2024',
     location: 'Toronto, ON',
+    desc: 'Strengthened test coverage and security across critical payment microservices.',
     highlights: [
       'Owned test quality across 4 critical payment microservices — lifted automated coverage from 40% → 80% and reduced production defects by 30%.',
       'Implemented token-based CIAM access controls in Spring Boot APIs for fraud history retrieval, supporting PCI DSS compliance.',
@@ -43,49 +52,30 @@ const EXPERIENCE = [
   },
   {
     logo: 'omers.png',
-    company: 'OMERS',
     role: 'Back-End Software Engineer Intern',
+    company: 'OMERS',
     period: 'Jan 2023 — Apr 2023',
     location: 'Toronto, ON',
+    desc: "Built Spring Boot APIs powering OMERS’ internal pension processing platform.",
     highlights: [
-      "Built Spring Boot APIs for Donna, OMERS' internal pension processing platform — handling fund transfers, account state changes, and business rules with 80%+ unit test coverage.",
+      "Built Spring Boot APIs for Donna, OMERS’ internal pension processing platform — handling fund transfers, account state changes, and business rules with 80%+ unit test coverage.",
     ],
     tools: ['Java', 'Spring Boot', 'PostgreSQL', 'MySQL', 'JUnit', 'Mockito'],
   },
 ];
 
-const PROJECTS = [
+const EDUCATION = [
   {
-    name: 'Laurier Flow',
-    role: 'Lead Engineer & Co-Founder',
-    url: 'https://laurierflow.ca/',
-    urlLabel: 'laurierflow.ca',
-    desc: 'Full-stack course review platform for Laurier students. Next.js, Supabase (PostgreSQL), and a Puppeteer scraper with CRON automation and exponential backoff.',
+    logo: 'waterloo.png',
+    school: 'University of Waterloo',
+    degree: 'Honours Bachelor of Computer Science',
+    period: 'Sep 2021 — Jun 2026',
   },
   {
-    name: 'The Blessed Path',
-    role: 'Founder',
-    url: 'https://theblessedpath.faith',
-    urlLabel: 'theblessedpath.faith',
-    desc: 'Islamic scripture platform supporting 40+ languages with an AI chatbot providing dynamic scripture citations. React.js, OpenAI APIs, Flask on AWS Lambda.',
-  },
-  {
-    name: 'Hack the North — Frontend Challenge',
-    url: 'https://htn-fe-challenge.vercel.app/',
-    urlLabel: 'htn-fe-challenge.vercel.app',
-    desc: 'Event viewer for Hack the North with mock authentication and private event gating. Next.js, React contexts, DaisyUI.',
-  },
-  {
-    name: 'Chess++',
-    url: 'http://bit.ly/3TXyw0D',
-    urlLabel: 'bit.ly/3TXyw0D',
-    desc: 'C++ chess engine built from scratch with UML-driven design. Observer, Factory, and MVC patterns with an X11 GUI for real-time move highlighting.',
-  },
-  {
-    name: 'Astroworld',
-    url: 'https://bit.ly/3Q5RfBN',
-    urlLabel: 'bit.ly/3Q5RfBN',
-    desc: 'Java desktop game and jukebox — a high school labour of love. Audio visualisation, a mini game, sorting algorithms, and persistent file storage.',
+    logo: 'laurier.png',
+    school: 'Wilfrid Laurier University',
+    degree: 'Honours Bachelor of Business Administration',
+    period: 'Sep 2021 — Jun 2026',
   },
 ];
 
@@ -95,8 +85,13 @@ function useFadeIn() {
     const el = ref.current;
     if (!el) return;
     const obs = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { el.classList.add('visible'); obs.disconnect(); } },
-      { threshold: 0.08 }
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          el.classList.add('visible');
+          obs.disconnect();
+        }
+      },
+      { threshold: 0.15 }
     );
     obs.observe(el);
     return () => obs.disconnect();
@@ -104,195 +99,192 @@ function useFadeIn() {
   return ref;
 }
 
-function Section({ id, label, intro, children }) {
-  const ref = useFadeIn();
-  return (
-    <section id={id} className="content-section fade-in" ref={ref}>
-      <div className="section-header">
-        <span className="section-label">{label}</span>
-        <div className="section-line" />
-      </div>
-      {intro && <p className="section-intro">{intro}</p>}
-      {children}
-    </section>
-  );
-}
-
-export default function App() {
-  const [active, setActive] = useState('home');
+function App() {
+  const expRef = useFadeIn();
+  const eduRef = useFadeIn();
+  const personalRef = useFadeIn();
+  const [openIndex, setOpenIndex] = useState(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const audioRef = useRef(null);
 
   useEffect(() => {
-    const handler = () => {
-      let current = 'home';
-      for (const id of SECTIONS) {
-        const el = document.getElementById(id);
-        if (el && window.scrollY >= el.offsetTop - 260) current = id;
-      }
-      setActive(current);
-    };
+    const handler = () => setScrolled(window.scrollY > 40);
     window.addEventListener('scroll', handler, { passive: true });
     return () => window.removeEventListener('scroll', handler);
   }, []);
 
-  const scrollTo = (id) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+  const togglePlay = () => {
+    const audio = audioRef.current;
+    if (!audio) return;
+    if (isPlaying) {
+      audio.pause();
+    } else {
+      audio.play();
+    }
+    setIsPlaying(!isPlaying);
+  };
 
   return (
-    <div className="site-wrapper">
-
-      <aside className="sidebar">
-        <div>
-          <div className="sidebar-monogram">F.Q.</div>
-          <nav className="sidebar-nav">
-            {SECTIONS.map(s => (
-              <button
-                key={s}
-                className={`nav-item${active === s ? ' active' : ''}`}
-                onClick={() => scrollTo(s)}
-              >
-                {s.toUpperCase()}
-              </button>
-            ))}
-          </nav>
+    <div className="App">
+      <section className="hero">
+        <img src="profile.jpg" alt="Faizaan Qureshi" className="portrait" />
+        <h1 className="name">Faizaan Qureshi</h1>
+        <div className="name-rule">
+          <span />
+          <i />
+          <span />
         </div>
-        <div className="sidebar-bottom">
-          <div className="social-links">
-            <a href="https://linkedin.com/in/faizaan-qureshi" target="_blank" rel="noreferrer" aria-label="LinkedIn">
-              <img src="linkedin.svg" alt="" />
-            </a>
-            <a href="https://github.com/faizaanqureshi" target="_blank" rel="noreferrer" aria-label="GitHub">
-              <img src="github.svg" alt="" />
-            </a>
-            <a href="https://faizaanqureshi.medium.com" target="_blank" rel="noreferrer" aria-label="Medium">
-              <img src="medium.svg" alt="" />
-            </a>
-            <a href="https://instagram.com/faizaanqureshi_/" target="_blank" rel="noreferrer" aria-label="Instagram">
-              <img src="instagram.svg" alt="" />
-            </a>
-          </div>
-          <a href="Faizaan Qureshi Resume.pdf" target="_blank" rel="noreferrer" className="resume-btn">
-            RÉSUMÉ ↗
+        <p className="title">Software Engineer</p>
+        <p className="headline">Some things are worth doing properly, or not at all.</p>
+        <div className="social-pill">
+          <a href="https://linkedin.com/in/faizaan-qureshi" target="_blank" rel="noreferrer" aria-label="LinkedIn">
+            <img src="linkedin.svg" alt="" />
           </a>
-          <p className="sidebar-copyright">© 2026</p>
+          <span className="social-divider" />
+          <a href="https://github.com/faizaanqureshi" target="_blank" rel="noreferrer" aria-label="GitHub">
+            <img src="github.svg" alt="" />
+          </a>
+          <span className="social-divider" />
+          <a href="Faizaan Qureshi Resume.pdf" target="_blank" rel="noreferrer" className="social-resume">
+            Résumé
+          </a>
         </div>
-      </aside>
 
-      <nav className="mobile-nav">
-        <span className="mobile-monogram">F.Q.</span>
-        <div className="mobile-nav-links">
-          {SECTIONS.map(s => (
-            <button key={s} className={active === s ? 'active' : ''} onClick={() => scrollTo(s)}>
-              {s.toUpperCase()}
-            </button>
-          ))}
-        </div>
-      </nav>
+        <button
+          className={`scroll-cue${scrolled ? ' scroll-cue-hidden' : ''}`}
+          aria-label="Scroll down"
+          onClick={() => document.querySelector('.experience')?.scrollIntoView({ behavior: 'smooth' })}
+        >
+          <span className="scroll-cue-arrow" />
+        </button>
+      </section>
 
-      <main className="main-content">
-
-        <section id="home" className="hero-section">
-          <div className="hero-inner">
-            <div className="hero-text">
-              <h1 className="hero-name">
-                <span>FAIZAAN</span>
-                <span>QURESHI</span>
-              </h1>
-              <p className="hero-title">Software Engineer</p>
-              <div className="hero-rule" />
-              <p className="hero-desc">
-                I build software that solves real problems — blending technical rigour
-                with a business-minded perspective cultivated through a CS &amp; BBA double degree.
-              </p>
-            </div>
-            <div className="hero-photo-wrap">
-              <img src="profile.jpg" alt="Faizaan Qureshi" className="hero-photo" />
-              <div className="hero-photo-frame" />
-            </div>
-          </div>
-          <div className="hero-scroll">
-            <span>scroll</span>
-            <div className="hero-scroll-line" />
-          </div>
-        </section>
-
-        <Section id="experience" label="Experience">
-          <div className="experience-list">
-            {EXPERIENCE.map((exp, i) => (
-              <div key={i} className="exp-item">
-                <div className="exp-logo-wrap">
-                  <img src={exp.logo} alt={exp.company} className="exp-logo" />
-                </div>
-                <div>
-                  <div className="exp-header">
-                    <h3 className="exp-role">{exp.role}</h3>
+      <section className="experience fade-in" ref={expRef}>
+        <div className="section-label">Experience</div>
+        <div className="experience-list">
+          {EXPERIENCE.map((exp, i) => {
+            const expandable = Boolean(exp.highlights);
+            const open = openIndex === i;
+            return (
+              <div
+                className={`exp-item${expandable ? ' expandable' : ''}${open ? ' open' : ''}${exp.current ? ' current' : ''}`}
+                key={i}
+                onClick={() => expandable && setOpenIndex(open ? null : i)}
+              >
+                <img src={exp.logo} alt={exp.company} className="exp-logo" />
+                <div className="exp-text">
+                  <div className="exp-heading">
+                    <h3 className="exp-role">
+                      {exp.role}
+                      {exp.current && <span className="current-badge">Current</span>}
+                    </h3>
                     <span className="exp-period">{exp.period}</span>
                   </div>
-                  <div className="exp-company-row">
-                    <span className="exp-company">{exp.company}</span>
-                    {exp.badge && <span className="exp-badge">{exp.badge}</span>}
-                    <span className="exp-location">{exp.location}</span>
-                  </div>
-                  <ul className="exp-highlights">
-                    {exp.highlights.map((h, j) => <li key={j}>{h}</li>)}
-                  </ul>
-                  <div className="exp-tools">
-                    {exp.tools.map(t => <span key={t} className="tool-tag">{t}</span>)}
-                  </div>
+                  <p className="exp-company">
+                    {exp.company} · {exp.location}
+                  </p>
+                  <p className="exp-desc">{exp.desc}</p>
+
+                  {expandable && (
+                    <div className="exp-more">
+                      <div className="exp-more-inner">
+                        <ul className="exp-highlights">
+                          {exp.highlights.map((h, j) => (
+                            <li key={j}>{h}</li>
+                          ))}
+                        </ul>
+                        <div className="exp-tools">
+                          {exp.tools.map((t) => (
+                            <span className="exp-tool" key={t}>
+                              {t}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
-            ))}
-          </div>
-        </Section>
+            );
+          })}
+        </div>
+      </section>
 
-        <Section
-          id="education"
-          label="Education"
-          intro="Double degree in Computer Science and Business Administration — bridging technical depth with strategic thinking."
-        >
-          <div className="education-list">
-            <div className="edu-item">
-              <img src="waterloo.png" alt="University of Waterloo" className="edu-logo" />
-              <div>
-                <h3 className="edu-school">University of Waterloo</h3>
-                <p className="edu-degree">Honours Bachelor of Computer Science</p>
-                <p className="edu-spec">Artificial Intelligence Specialization</p>
-                <p className="edu-period">Expected May 2026</p>
-              </div>
-            </div>
-            <div className="edu-item">
-              <img src="laurier.png" alt="Wilfrid Laurier University" className="edu-logo" />
-              <div>
-                <h3 className="edu-school">Wilfrid Laurier University</h3>
-                <p className="edu-degree">Honours Bachelor of Business Administration</p>
-                <p className="edu-spec">President's Gold Scholarship</p>
-                <p className="edu-period">Expected May 2026</p>
-              </div>
-            </div>
-          </div>
-        </Section>
-
-        <Section id="projects" label="Projects">
-          <div className="projects-list">
-            {PROJECTS.map((proj, i) => (
-              <div key={i} className="project-item">
-                <div className="project-header">
-                  <h3 className="project-name">{proj.name}</h3>
-                  <a href={proj.url} target="_blank" rel="noreferrer" className="project-link">
-                    {proj.urlLabel} ↗
-                  </a>
+      <section className="education fade-in" ref={eduRef}>
+        <div className="section-label">Education</div>
+        <div className="education-list">
+          {EDUCATION.map((edu) => (
+            <div className="edu-item" key={edu.school}>
+              <img src={edu.logo} alt={edu.school} className="edu-logo" />
+              <div className="edu-text">
+                <div className="edu-heading">
+                  <h3 className="edu-school">{edu.school}</h3>
+                  <span className="edu-period">{edu.period}</span>
                 </div>
-                {proj.role && <p className="project-role">{proj.role}</p>}
-                <p className="project-desc">{proj.desc}</p>
+                <p className="edu-degree">{edu.degree}</p>
               </div>
-            ))}
+            </div>
+          ))}
+        </div>
+        <p className="edu-graduated">Graduated June 2026</p>
+      </section>
+
+      <section className="personal fade-in" ref={personalRef}>
+        <div className="section-label">Beyond the Resume</div>
+
+        <div className="personal-quotes">
+          <div className="currently-item">
+            <span className="currently-label">Toronto, Always</span>
+            <p className="currently-value personal-text">
+              Toronto-raised, and predictably biased about it — best city, best country, the ’19 Raptors run as supporting evidence.
+            </p>
           </div>
-        </Section>
 
-        <footer className="site-footer">
-          <p>Designed &amp; built by Faizaan Qureshi</p>
-          <a href="mailto:qfaizaan@gmail.com">Get in touch ↗</a>
-        </footer>
+          <span className="personal-divider" />
 
-      </main>
+          <div className="currently-item">
+            <span className="currently-label">Outside of Work</span>
+            <p className="currently-value personal-text">
+              Good food, the gym more often than I’ll admit, and a habit of driving somewhere with no plan.
+            </p>
+          </div>
+        </div>
+
+        <div className="personal-duo">
+          <div className="currently-item">
+            <span className="currently-label">Reading</span>
+            <span className="currently-value">The Count of Monte Cristo</span>
+            <span className="currently-sub">Alexandre Dumas</span>
+          </div>
+
+          <span className="personal-duo-divider" />
+
+          <div className="currently-item currently-song">
+            <span className="currently-label">On Repeat</span>
+            <div className="record-player" onClick={togglePlay} role="button" aria-label="Play Plot Twist">
+              <div className={`record${isPlaying ? ' spinning' : ''}`}>
+                <img src="iceman.jpeg" alt="" className="record-label" />
+              </div>
+              <span className="record-icon">{isPlaying ? '❚❚' : '▶'}</span>
+            </div>
+            <span className="currently-value">Plot Twist</span>
+            <span className="currently-sub">Drake</span>
+            <audio ref={audioRef} src="plot-twist.mp3" onEnded={() => setIsPlaying(false)} />
+          </div>
+        </div>
+      </section>
+
+      <section className="closing">
+        <p className="closing-text">Always up for a good conversation.</p>
+        <a href="mailto:qfaizaan@gmail.com" className="closing-email">
+          qfaizaan@gmail.com
+        </a>
+      </section>
+
+      <p className="credit">Designed &amp; built by Faizaan Qureshi</p>
     </div>
   );
 }
+
+export default App;
