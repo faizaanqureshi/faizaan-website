@@ -136,7 +136,7 @@ function App() {
           <span />
         </div>
         <p className="title">Software Engineer</p>
-        <p className="headline">Some things are worth doing properly, or not at all.</p>
+        <p className="headline">I like building sophisticated and elegant software</p>
         <div className="social-pill">
           <a href="https://linkedin.com/in/faizaan-qureshi" target="_blank" rel="noreferrer" aria-label="LinkedIn">
             <img src="linkedin.svg" alt="" />
